@@ -25,4 +25,5 @@ import { Jobs } from './Entities/jobs.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+}

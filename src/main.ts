@@ -1,34 +1,26 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cors from 'cors';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
+// import {
+//   FastifyAdapter,
+//   NestFastifyApplication,
+// } from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-  const CORS_OPTIONS = {
-    origin: ['*'], // or '*' or whatever is required
-    allowedHeaders: [
-      'Access-Control-Allow-Origin',
-      'Origin',
-      'X-Requested-With',
-      'Accept',
-      'Content-Type',
-      'Authorization',
-    ],
-    exposedHeaders: 'Authorization',
-    credentials: true,
-    methods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
-  };
+  var app = await NestFactory.create(AppModule);
 
-  const adapter = new FastifyAdapter();
-  adapter.enableCors(CORS_OPTIONS)
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    adapter,
-  );
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
+  });
 
-  await app.listen(3000);
+  app.enableCors({
+    allowedHeaders: "*",
+    origin: ["https://naveen-golla123.github.io/"]
+  });
+  
+  await app.listen(8000);
 }
 bootstrap();
