@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Jobs } from "src/Entities/Jobs.entity";
+import { Jobs } from "../Entities/Jobs.entity";
 import { Repository } from "typeorm";
 import { SaveJobDTO } from "./Dto/SaveJobDto";
 
